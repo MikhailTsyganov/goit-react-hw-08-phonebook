@@ -12,7 +12,7 @@ export default function UserMenu() {
   };
   return (
     <div className={s.wrapper}>
-      <p>Добро пожаловать, {name}</p>
+      <p className={s.text}>Добро пожаловать, {name}</p>
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
