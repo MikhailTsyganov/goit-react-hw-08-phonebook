@@ -1,0 +1,10 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.wrapper button {
+  height: 30px;
+  margin-left: 20px;
+}
