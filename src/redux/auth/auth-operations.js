@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com/users';
 
@@ -16,8 +17,13 @@ export const register = createAsyncThunk('auth/register', async credentials => {
   try {
     const { data } = await axios.post('/signup', credentials);
     token.set(data.token);
+    console.log(data);
     return data;
-  } catch (error) {}
+  } catch (error) {
+    toast.error(
+      'Request failed. Perhaps a user with such data already exists.'
+    );
+  }
 });
 
 export const login = createAsyncThunk('auth/login', async credentials => {
@@ -25,14 +31,18 @@ export const login = createAsyncThunk('auth/login', async credentials => {
     const { data } = await axios.post('/login', credentials);
     token.set(data.token);
     return data;
-  } catch (error) {}
+  } catch (error) {
+    toast.error('User is not defined.');
+  }
 });
 
 export const logout = createAsyncThunk('auth/logout', async () => {
   try {
     await axios.post('/logout');
     token.unset();
-  } catch (error) {}
+  } catch (error) {
+    toast.error('Something went wrong. Try again later.');
+  }
 });
 
 export const fetchCurrentUser = createAsyncThunk(
